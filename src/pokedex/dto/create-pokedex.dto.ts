@@ -10,5 +10,4 @@ export class CreatePokedexDto {
     @IsString()
     @MinLength(1)
     name: string;
-
 }

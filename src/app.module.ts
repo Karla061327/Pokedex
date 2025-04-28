@@ -7,6 +7,7 @@ import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 
 @Module({ 
+  providers: [],
   imports: [ 
     ServeStaticModule.forRoot({ 
        rootPath: join(__dirname,'..','public'), 

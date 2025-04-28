@@ -9,6 +9,6 @@ export class SeedController {
 
   @Get()
   load(@Body() createSeedDto: CreateSeedDto) {
-    return this.seedService.loadDataBase();
+    return this.seedService.load();
   }
 }

@@ -13,7 +13,9 @@ import { Pokedex, PokedexSchema } from './entities/pokedex.entity';
         name: Pokedex.name,
         schema: PokedexSchema
       }
-    ])
-  ]
+    ]
+  )
+  ],
+  exports: [MongooseModule]
 })
 export class PokedexModule {}
