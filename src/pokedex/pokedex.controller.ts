@@ -26,8 +26,7 @@ export class PokedexController {
 
   @Get()
   findAll(@Query() paginationDto: PaginationDto) {
-    console.log(paginationDto);
-    return this.pokedexService.findAll()
+    return this.pokedexService.findAll(paginationDto)
   }
 
   @Delete(':id')

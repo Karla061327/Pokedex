@@ -5,15 +5,24 @@ import { join } from 'path';
 import { PokedexModule } from './pokedex/pokedex.module';
 import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
+import { ConfigModule } from '@nestjs/config';
+import { EnvConfiduration } from './config/env.config';
+import { JoiValidatioSchema } from './config/joi.validation';
 
 @Module({ 
-  providers: [],
   imports: [ 
+    ConfigModule.forRoot({
+      load: [EnvConfiduration],
+      validationSchema: JoiValidatioSchema,
+    }),
+    
     ServeStaticModule.forRoot({ 
        rootPath: join(__dirname,'..','public'), 
       }), 
-      MongooseModule.forRoot('mongodb://localhost:27017/nest-pokemon'),
-      
+      MongooseModule.forRoot(process.env.MONGODB!, {
+        dbName: 'pokemonsdb'
+      }), 
+       
       PokedexModule,
       
       CommonModule,

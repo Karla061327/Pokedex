@@ -9,15 +9,25 @@
 ```
 npm i
 ```
+
 3. Tener Nest CLI instalado, para el desarollo
 ```
 npm i -g @nestjs/cli
 ```
+
 4. levantar base de datos 
 ```
 docker-compose up -d
 ```
-5. Reconstruir la base de datos con la semilla
+
+5. Clonar el archivo .env.temple y llenar las variables de entorno
+
+6. correr node en desarrollo 
+```
+npm run start:dev
+```
+
+7. Reconstruir la base de datos con la semilla
 ```
 http://localhost:3000/api/v2/seed
 ```

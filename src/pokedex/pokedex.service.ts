@@ -1,10 +1,14 @@
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException,  } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import {InjectModel} from '@nestjs/mongoose';
+
+import { isValidObjectId, Model } from 'mongoose';
+import { Pokedex } from './entities/pokedex.entity';
+
 import { CreatePokedexDto } from './dto/create-pokedex.dto';
 import { UpdatePokedexDto } from './dto/update-pokedex.dto';
-import { Pokedex } from './entities/pokedex.entity';
-import { isValidObjectId, Model } from 'mongoose';
-import {InjectModel} from '@nestjs/mongoose';
-import { error } from 'console';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
+
 
 @Injectable()
 export class PokedexService {
@@ -12,6 +16,7 @@ export class PokedexService {
   constructor(
     @InjectModel(Pokedex.name)
     private readonly pokemonModel: Model<Pokedex>,
+    private readonly configService: ConfigService,
   ){}
 
   async create(createPokedexDto: CreatePokedexDto) {
@@ -25,10 +30,15 @@ export class PokedexService {
         this.handleExeptions(error)
     }
   }
-  findAll(){
+  findAll(paginationDto: PaginationDto){
+    const {limit, offset} = paginationDto
     return this.pokemonModel.find()
-      .limit(5)
-      .skip(5)
+      .limit(limit)
+      .skip(offset)
+      .sort({
+        no: 1
+      })
+      .select('-_v')
   }
   
   async findOne(term: string) {
